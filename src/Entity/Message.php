@@ -6,6 +6,7 @@ class Message
 {
     private $firstName;
     private $lastName;
+    private $birthDate;
     private $email;
     private $subject;
     private $content;
@@ -25,6 +26,26 @@ class Message
     {
         $this->firstName = $firstName;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBirthDate()
+    {
+        return $this->birthDate;
+    }
+
+    /**
+     * @param mixed $birthDate
+     */
+    public function setBirthDate($birthDate): void
+    {
+        $this->birthDate = $birthDate;
+    }
+
+
+
+
 
     /**
      * @return mixed

@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Message;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,6 +31,12 @@ class MessageType extends AbstractType
                 'attr' =>['class' => 'form-control']
 
             ])
+
+            ->add('birthDate', DateType::class,[
+                'required' =>true,
+                'attr' =>['class' => 'form-control']
+            ])
+
             ->add('email', EmailType::class,[
                 'required' =>true,
                 'attr' =>['class' => 'form-control']
