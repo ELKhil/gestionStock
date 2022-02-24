@@ -4,7 +4,8 @@ namespace App\Entity;
 
 class Message
 {
-    private $name;
+    private $firstName;
+    private $lastName;
     private $email;
     private $subject;
     private $content;
@@ -12,18 +13,36 @@ class Message
     /**
      * @return mixed
      */
-    public function getName()
+    public function getFirstName()
     {
-        return $this->name;
+        return $this->firstName;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $firstName
      */
-    public function setName($name): void
+    public function setFirstName($firstName): void
     {
-        $this->name = $name;
+        $this->firstName = $firstName;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param mixed $lastName
+     */
+    public function setLastName($lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+
 
     /**
      * @return mixed

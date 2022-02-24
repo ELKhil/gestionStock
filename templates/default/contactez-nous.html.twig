@@ -23,8 +23,8 @@
                         <div class="col-md-6">
                             <div class="md-form mb-0">
                                 <!--{'attr' : {'class' : 'form-control'}}-->
-                                {{ form_widget(form.name) }}
-                                <label for="name" class="">Your name</label>
+                                {{ form_widget(form.firstName) }}
+                                <label for="firstName" class="">Your first name</label>
                             </div>
                         </div>
                         <!--Grid column-->
@@ -32,14 +32,28 @@
                         <!--Grid column-->
                         <div class="col-md-6">
                             <div class="md-form mb-0">
-                                {{ form_widget(form.email) }}
-                                <label for="email" class="">Your email</label>
+                                {{ form_widget(form.lastName) }}
+                                <label for="lastName" class="">Your last name</label>
                             </div>
                         </div>
                         <!--Grid column-->
 
                     </div>
                     <!--Grid row-->
+
+
+
+                    <!--Grid row-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="md-form mb-0">
+                                {{ form_widget(form.email) }}
+                                <label for="email" class="">Your email</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Grid row-->
+
 
                     <!--Grid row-->
                     <div class="row">

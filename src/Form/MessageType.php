@@ -19,7 +19,12 @@ class MessageType extends AbstractType
     {
         //les champs contenu dans mon formulaire
         $builder
-            ->add('name',\Symfony\Component\Form\Extension\Core\Type\TextType::class,[
+            ->add('firstName',\Symfony\Component\Form\Extension\Core\Type\TextType::class,[
+                'required' =>true,
+                'attr' =>['class' => 'form-control']
+
+            ])
+            ->add('lastName',\Symfony\Component\Form\Extension\Core\Type\TextType::class,[
                 'required' =>true,
                 'attr' =>['class' => 'form-control']
 
