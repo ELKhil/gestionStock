@@ -1,0 +1,46 @@
+@import "bootstrap";
+@import "@fortawesome/fontawesome-free/css/all.css";
+@import "variables";
+
+body{
+    min-height: 100vh; //100% de la hauteur de l'ecran
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    border-bottom: 1px solid $border-color;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    background-color: #0c63e4;
+    padding: 0 20px;
+    .title{
+        font-size: 25px;
+        color: white;
+    }
+}
+
+.flex-container{
+    flex-grow: 1;
+    display: flex;
+    background-color: #cccccc;
+    #main-nav{
+        width: 300px;
+        border-right: 1px solid $border-color;
+        background-color: white;
+    }
+    main{
+        flex-grow: 1;
+        margin: 10px;
+        background-color: white;
+        padding: 10px;
+
+    }
+}
+footer{
+    height: 50px;
+    border-top: 1px solid $border-color
+}

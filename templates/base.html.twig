@@ -8,12 +8,33 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
     </head>
+
     <body>
-        {% block body %}{% endblock %}
+    <header>
+        <div class="left">
+            <i class="fa fa-bars"></i>
+        </div>
+        <div class="title">
+            Bruxelles Formation - Gestion de stock
+        </div>
+        <div class="right">
+            <i class="fa fa-power-off"></i>
+        </div>
+    </header>
+
+    <div class="flex-container">
+        {{ include ("partials/menu.html.twig") }}
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+    </div>
+    <footer></footer>
+
+
+                {% block javascripts %}
+                    {{ encore_entry_link_tags('app') }}
+                {% endblock %}
+
     </body>
 </html>

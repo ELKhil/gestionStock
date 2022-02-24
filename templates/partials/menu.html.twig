@@ -1,0 +1,11 @@
+<nav id="main-nav">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            {# path foncyion symfony intégré a twig pour créer des liens #}
+            {# {name: 'khun'} ajoutera ?name=khun dans la requet #}
+            <a class="nav-link" href="{{ path('default_home',{name: 'Khun'}) }}"><i class="fa fa-home me-2"></i>Accueil</a>
+        </li>
+        <li><a class="nav-link" href="{{ path('default_contact') }}"><i class="fa fa-book me-2"></i>Contact</a></li>
+        <li><a class="nav-link" href="{{ path('default_contact_us') }}"><i class="fa fa-phone-square text-primary f-56"></i>Contact-us</a></li>
+    </ul>
+</nav>
