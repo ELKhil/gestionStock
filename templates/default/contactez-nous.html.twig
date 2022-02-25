@@ -14,7 +14,10 @@
 
             <!--Grid column-->
             <div class="col-md-9 mb-md-0 mb-5">
-                <form id="contact-form" name="contact-form"  method="POST">
+                {# est nécessaire à l'envoie de formulaire #}
+                <form id="contact-form" name="contact-form"  method="POST" enctype="multipart/form-data">
+
+                    {# {{ form_row(form.lastName) }} remplace form_label et form_widget et form_errors#}
 
                     <!--Grid row-->
                     <div class="row">
@@ -22,9 +25,7 @@
                         <!--Grid column-->
                         <div class="col-md-6">
                             <div class="md-form mb-0">
-                                <!--{'attr' : {'class' : 'form-control'}}-->
-                                {{ form_widget(form.firstName) }}
-                                <label for="firstName" class="">Your first name</label>
+                                {{ form_row(form.firstName) }}
                             </div>
                         </div>
                         <!--Grid column-->
@@ -32,8 +33,7 @@
                         <!--Grid column-->
                         <div class="col-md-6">
                             <div class="md-form mb-0">
-                                {{ form_widget(form.lastName) }}
-                                <label for="lastName" class="">Your last name</label>
+                                {{ form_row(form.lastName) }}
                             </div>
                         </div>
                         <!--Grid column-->
@@ -45,8 +45,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="md-form mb-0">
-                                {{ form_widget(form.birthDate) }}
                                 <label for="birthDate" class="">Your BirthDate</label>
+                                {{ form_widget(form.birthDate) }}
                             </div>
                         </div>
 
@@ -56,12 +56,8 @@
 
                         <div class="col-md-6">
                             <div class="md-form mb-0">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Gender</option>
-                                    <option value="1">Mr</option>
-                                    <option value="2">Mme</option>
-                                    <option value="3">Mlle</option>
-                                </select>
+                                <label>Gender</label>
+                               {{ form_widget((form.genre)) }}
                             </div>
                         </div>
                     </div>
@@ -72,8 +68,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="md-form mb-0">
-                                {{ form_widget(form.email) }}
                                 <label for="email" class="">Your email</label>
+                                {{ form_widget(form.email) }}
                             </div>
                         </div>
                     </div>
@@ -84,8 +80,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="md-form mb-0">
-                                {{ form_widget(form.subject) }}
                                 <label for="subject" class="">Subject</label>
+                                {{ form_widget(form.subject) }}
                             </div>
                         </div>
                     </div>
@@ -98,18 +94,45 @@
                         <div class="col-md-12">
 
                             <div class="md-form">
-                                {{ form_widget(form.content) }}
                                 <label for="content">Your message</label>
+                                {{ form_widget(form.content) }}
                             </div>
 
                         </div>
                     </div>
-                    <div class="text-left text-md-right">
-                        <button class="btn btn-primary">
-                        <i></i>Send
-                        </button>
+
+                    <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            {{ form_row(form.fichier) }}
+                        </div>
                     </div>
-                    <div class="status"></div>
+                    </div>
+
+
+
+                        <div class="col-md-12">
+                            <div class="md-form mb-0">
+                                {{ form_widget(form.accepter) }}
+                                <label for="accepter" class="">Acceptez les conditions</label>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <button class="btn btn-primary">
+                                    <i></i>Send
+                                    </button>
+                                </div>
+                            </div>
+
+
 
                 </form>
 

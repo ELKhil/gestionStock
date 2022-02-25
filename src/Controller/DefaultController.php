@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -49,7 +51,7 @@ class DefaultController extends AbstractController
     }
     #[Route(path:'/contactez-nous', name: 'default_contact_us',)]
 
-    public function contacteUs(Request $request){
+    public function contacteUs(Request $request, MailerInterface $mailer){
         //récupération des données en post (ne pas utiliser de cette maniere (passer par
         //$name =$request->request->get('name');
         //$email =$request->request->get('email');
@@ -63,6 +65,30 @@ class DefaultController extends AbstractController
         //remplir / hydratation le message
         $form->handleRequest($request);
         dump($message);
+
+        if($form->isSubmitted() /*&& $form->isValid()*/){
+            //envoyer dans la db ou envoyer un emal ...
+            $email =new Email();
+            $email->to('m.s.elkhil@gmail.com');
+            $email->from('noreply.bformation@gmail.com');
+            $email->subject($message->getSubject());
+            $email->text($message->getContent());
+            $email->html(sprintf("<p>%s</p>", $message->getEmail()));
+
+            try {
+                $mailer->send($email);
+                //notification ook
+                $this->addFlash('success','Votre message a été bien envoyé');
+            } catch (TransportExceptionInterface $e) {
+                //notification not ok
+                $this->addFlash('error','une erreur est survenue, vueillez nous en excuser');
+            }
+
+
+
+            return $this->redirectToRoute('default_home');
+        }
+
 
         return $this->render('default/contactez-nous.html.twig',[
             'form'=>$form->createView()

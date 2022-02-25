@@ -10,6 +10,65 @@ class Message
     private $email;
     private $subject;
     private $content;
+    private $accepter;
+    private $genre;
+    /*
+     * @var UploadedFile
+     */
+    private $fichier;
+
+    /**
+     * @return mixed
+     */
+    public function getFichier()
+    {
+        return $this->fichier;
+    }
+
+    /**
+     * @param mixed $fichier
+     */
+    public function setFichier($fichier): void
+    {
+        $this->fichier = $fichier;
+    }
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
+
+    /**
+     * @param mixed $genre
+     */
+    public function setGenre($genre): void
+    {
+        $this->genre = $genre;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getAccepter()
+    {
+        return $this->accepter;
+    }
+
+    /**
+     * @param mixed $accepter
+     */
+    public function setAccepter($accepter): void
+    {
+        $this->accepter = $accepter;
+    }
+
 
     /**
      * @return mixed
