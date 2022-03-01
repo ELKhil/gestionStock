@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DefaultController extends AbstractController
 {
@@ -51,7 +52,7 @@ class DefaultController extends AbstractController
     }
     #[Route(path:'/contactez-nous', name: 'default_contact_us',)]
 
-    public function contacteUs(Request $request, MailerInterface $mailer){
+    public function contacteUs(Request $request, MailerInterface $mailer , SluggerInterface $slugger){
         //récupération des données en post (ne pas utiliser de cette maniere (passer par
         //$name =$request->request->get('name');
         //$email =$request->request->get('email');
@@ -73,20 +74,55 @@ class DefaultController extends AbstractController
             $email->from('noreply.bformation@gmail.com');
             $email->subject($message->getSubject());
             $email->text($message->getContent());
-            $email->html(sprintf("<p>%s</p>", $message->getEmail()));
 
-            try {
-                $mailer->send($email);
-                //notification ook
-                $this->addFlash('success','Votre message a été bien envoyé');
-            } catch (TransportExceptionInterface $e) {
-                //notification not ok
-                $this->addFlash('error','une erreur est survenue, vueillez nous en excuser');
+            $email->html(sprintf("<h2>%s %s</h2> <p>%s</p> <p>%s</p>",$message->getFirstName(),
+                $message->getLastName(),$message->getContent(),$message->getEmail()));
+            // $email->html(sprintf("<h1>%s</h1>",$message->getLastName()));*/
+            //$email->html(sprintf("<p>%s</p>", $message->getEmail()));
+
+            /** @var UploadedFile $brochureFile */
+            $brochureFile = $form->get('fichier')->getData();
+
+            if ($brochureFile) {
+                // this condition is needed because the 'brochure' field is not required
+                // so the PDF file must be processed only when a file is uploaded
+                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $brochureFile->move(
+                        $this->getParameter('brochures_directory'),
+                        $newFilename
+                    );
+                    dump("hello");
+                } catch (FileException $e) {
+                    $this->addFlash('error', "le fichier n'a pas pu etre télécharger");
+                }
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $message->setFichier($newFilename);
+
             }
 
 
+                try {
+                    $mailer->send($email);
+                    //notification ook
+                    $this->addFlash('success','Votre message a été bien envoyé');
+                } catch (TransportExceptionInterface $e) {
+                    //notification not ok
+                    $this->addFlash('error','une erreur est survenue, vueillez nous en excuser');
+                }
 
-            return $this->redirectToRoute('default_home');
+
+
+
+
+           return $this->redirectToRoute('default_home');
         }
 
 
@@ -94,6 +130,10 @@ class DefaultController extends AbstractController
             'form'=>$form->createView()
         ]);
     }
+
+
+
+
 
 
 

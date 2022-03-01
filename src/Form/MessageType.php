@@ -75,7 +75,7 @@ class MessageType extends AbstractType
                 'rows' => "10"]
             ])
             ->add('fichier', FileType::class,[
-
+                'required' =>false,
                 'label' =>'Downoald File',
                 'attr' =>['class' => 'form-control'],
                 'constraints' => [

@@ -9,6 +9,7 @@ class Message
     private $birthDate;
     private $email;
     private $subject;
+
     private $content;
     private $accepter;
     private $genre;
@@ -71,7 +72,7 @@ class Message
 
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFirstName()
     {
@@ -107,7 +108,7 @@ class Message
 
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLastName()
     {
@@ -125,7 +126,7 @@ class Message
 
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEmail()
     {
@@ -140,17 +141,13 @@ class Message
         $this->email = $email;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSubject()
+
+    public function getSubject(): string
     {
         return $this->subject;
     }
 
-    /**
-     * @param mixed $subject
-     */
+
     public function setSubject($subject): void
     {
         $this->subject = $subject;
@@ -159,7 +156,7 @@ class Message
     /**
      * @return mixed
      */
-    public function getContent()
+    public function getContent() : string
     {
         return $this->content;
     }
