@@ -1,16 +1,26 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class Message
 {
     private $firstName;
     private $lastName;
     private $birthDate;
+    /**
+     * @return string
+     */
+    #[Assert\Email]
+    #[Assert\NotBlank]
     private $email;
     private $subject;
 
+    #[Assert\NotBlank(message:'Ce champ est requis')]
+    #[Assert\Length(min: 10, max: 10000,minMessage: 'Trop court', maxMessage : 'Trop long' )]
     private $content;
+
+
     private $accepter;
     private $genre;
     /*
@@ -125,9 +135,7 @@ class Message
 
 
 
-    /**
-     * @return string
-     */
+
     public function getEmail()
     {
         return $this->email;

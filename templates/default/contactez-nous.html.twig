@@ -17,6 +17,9 @@
                 {# est nécessaire à l'envoie de formulaire #}
                 <form id="contact-form" name="contact-form"  method="POST" enctype="multipart/form-data">
 
+                    {# input caché qui contiendra un code généré par le srveur #}
+                    {{form_widget(form._token)}}
+
                     {# {{ form_row(form.lastName) }} remplace form_label et form_widget et form_errors#}
 
                     <!--Grid row-->
@@ -70,6 +73,7 @@
                             <div class="md-form mb-0">
                                 <label for="email" class="">Your email</label>
                                 {{ form_widget(form.email) }}
+                                {{ form_errors(form.email) }}
                             </div>
                         </div>
                     </div>
@@ -96,6 +100,7 @@
                             <div class="md-form">
                                 <label for="content">Your message</label>
                                 {{ form_widget(form.content) }}
+                                {{ form_errors(form.content) }}
                             </div>
 
                         </div>

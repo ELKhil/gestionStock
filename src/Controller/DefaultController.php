@@ -67,16 +67,21 @@ class DefaultController extends AbstractController
         $form->handleRequest($request);
         dump($message);
 
-        if($form->isSubmitted() /*&& $form->isValid()*/){
+        if($form->isSubmitted() && $form->isValid()){
             //envoyer dans la db ou envoyer un emal ...
             $email =new Email();
             $email->to('m.s.elkhil@gmail.com');
             $email->from('noreply.bformation@gmail.com');
-            $email->subject($message->getSubject());
-            $email->text($message->getContent());
+            //$email->subject($message->getSubject());
+            //$email->text($message->getContent());
 
-            $email->html(sprintf("<h2>%s %s</h2> <p>%s</p> <p>%s</p>",$message->getFirstName(),
-                $message->getLastName(),$message->getContent(),$message->getEmail()));
+
+            $email->html($this->renderView('mail/contact-us.html.twig', [
+                'model' => $message
+            ]));
+
+           // $email->html(sprintf("<h2>%s %s</h2> <p>%s</p> <p>%s</p>",$message->getFirstName(),
+               // $message->getLastName(),$message->getContent(),$message->getEmail()));
             // $email->html(sprintf("<h1>%s</h1>",$message->getLastName()));*/
             //$email->html(sprintf("<p>%s</p>", $message->getEmail()));
 

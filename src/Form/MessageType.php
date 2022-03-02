@@ -70,7 +70,7 @@ class MessageType extends AbstractType
                 'attr' =>['class' => 'form-control']
             ])
             ->add('content',TextareaType::class,[
-                'required' =>true,
+                'required' =>false,
                 'attr' =>['class' => 'form-control',
                 'rows' => "10"]
             ])
@@ -94,6 +94,8 @@ class MessageType extends AbstractType
         $resolver->setDefaults(
             //le nom de la classe liée au formulaire
             ['data_class'=>Message::class]
+            //retirer la protectio csrf
+            /* 'csrf_protection'=> false*/
         );
     }
 
