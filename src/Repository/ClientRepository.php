@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Repository;
+
+use App\Entity\Client;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+
+/**
+ * @method Client|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Client|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Client[]    findAll()
+ * @method Client[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class ClientRepository extends ServiceEntityRepository
+{
+    public function __construct(ManagerRegistry $registry)
+    {
+
+        parent::__construct($registry, Client::class);
+    }
+
+    // /**
+    //  * @return Client[] Returns an array of Client objects
+    //  */
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    */
+
+    /*
+    public function findOneBySomeField($value): ?Client
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    */
+    public function findBySearch($offset,$limit,$keyword){
+        //créer le constructeur de requet:
+        $qb =  $this->createQueryBuilder('c');
+        $qb ->where('c.deleted=0');
+        if($keyword && $limit && isset($offset)) {
+            $qb->andWhere('c.nom LIKE :p1 OR c.prenom LIKE :p1 OR c.reference LIKE :p1 ');
+            $qb->setParameter('p1', $keyword . '%');
+        }
+                $qb->setFirstResult($offset);
+                $qb->setMaxResults($limit);
+
+
+        return $qb->getQuery()->getResult();
+
+
+
+
+
+
+        //getResult() // recupére une liste de résultat
+        //getOneResult() // recuperer le premier resultat
+        //return $qb->getQuery()->getResult();
+    }
+}
