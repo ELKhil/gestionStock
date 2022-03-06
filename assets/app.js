@@ -11,3 +11,15 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
+
+const mainNav = document.getElementById('main-nav');
+const menuBtn = document.querySelector(".left");
+
+
+
+
+const toggleNav = e => {
+    mainNav.classList.toggle('open');
+}
+
+menuBtn.addEventListener('click', toggleNav);

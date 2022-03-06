@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClientController!{% endblock %}
+
+{% block body %}
+
+    <h2 style="display: flex; justify-content: center; padding-top: 20px; font-style: italic">Clients</h2>
+
+
+
+    <form method="GET">
+        <div class="input-group" style=" display: flex; justify-content: right">
+            <div class="form-check-inline">
+                <input  type="search" name="keyword" class="form-control" placeholder="Search"/>
+                <label  for="keyword"></label>
+
+            </div>
+            <div class="form-check-inline">
+                <button class="btn btn-dark">Chercher</button>
+            </div>
+
+        </div>
+    </form>
+
+
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Reference</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for c in clients %}
+            <tr>
+                <td>{{ c.reference }}</td>
+                <td>{{ c.nom }}</td>
+                <td>{{ c.prenom }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+
+
+        <nav aria-label="Page navigation example" style = "padding-top: 300px; display: flex; justify-content: center">
+            <ul class="pagination" >
+                <li class="page-item" ><a style="color: black" class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a style="color: black"class="page-link" href="{{ path('client_clients', { 'offset': 0 }) }}">1</a></li>
+                <li class="page-item"><a style="color: black" class="page-link" href="{{ path('client_clients', { 'offset': 2 }) }}">2</a></li>
+                <li class="page-item"><a style="color: black" class="page-link" href="{{ path('client_clients', { 'offset': 4 }) }}">3</a></li>
+                <li class="page-item"><a style="color: black"  class="page-link" href="{{ path('client_clients', { 'offset': 6 }) }}">4</a></li>
+                <li class="page-item"><a style="color: black" class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+
+{% endblock %}
+
+
+
+
+

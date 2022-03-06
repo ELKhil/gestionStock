@@ -1,5 +1,5 @@
 @import "bootstrap";
-@import "@fortawesome/fontawesome-free/css/all.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 @import "toastr/toastr";
 @import "variables";
 
@@ -9,44 +9,70 @@ body{
     flex-direction: column;
 }
 
-header{
-    border-bottom: 1px solid $border-color;
+header {
+    box-shadow: 2px 0 10px 0 $border-color;
     height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: white;
-    background-color: #0c63e4;
     padding: 0 20px;
-    .title{
-        font-size: 25px;
-        color: white;
+    z-index: 1;
+    background: $reed;
+    color : white;
+    .fa {
+        cursor: pointer;
+    }
+    .title {
+        font-size: 19px;
     }
 }
 
-.flex-container{
+.flex-container {
     flex-grow: 1;
     display: flex;
     background-color: #cccccc;
-    #main-nav{
+    z-index: 0;
+    #main-nav {
         width: 300px;
-        border-right: 1px solid $border-color;
+        margin-left: -300px;
+        box-shadow: 0 2px 10px 0 $border-color;
         background-color: white;
+        transition: all 0.3s ease;
+        &.open {
+            margin-left: 0;
+        }
+        > ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            > li {
+                > a {
+                    color: black;
+                    text-decoration: none;
+                    display: block;
+                    padding: 10px 20px;
+                    border-bottom: 1px solid $border-color;
+                    &:hover {
+                        color: white;
+                        background: #b32d2e;
+                    }
+                }
+
+            }
+        }
     }
     main{
         flex-grow: 1;
         margin: 10px;
         background-color: white;
         padding: 10px;
-
     }
 }
-footer{
-    height: 50px;
-    border-top: 1px solid $border-color
-}
-label{
-    font-weight: bolder;
-    font-style: italic;
-}
 
+
+footer {
+    height: 50px;
+    box-shadow: -2px 0 10px 0 $border-color;
+    z-index: 1;
+    background: white;
+}

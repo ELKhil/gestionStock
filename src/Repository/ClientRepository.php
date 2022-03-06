@@ -52,21 +52,17 @@ class ClientRepository extends ServiceEntityRepository
         //créer le constructeur de requet:
         $qb =  $this->createQueryBuilder('c');
         $qb ->where('c.deleted=0');
-        if($keyword && $limit && isset($offset)) {
+
+        if(!empty($keyword)){
             $qb->andWhere('c.nom LIKE :p1 OR c.prenom LIKE :p1 OR c.reference LIKE :p1 ');
             $qb->setParameter('p1', $keyword . '%');
+
         }
-                $qb->setFirstResult($offset);
-                $qb->setMaxResults($limit);
+        $qb->setFirstResult($offset);
+        $qb->setMaxResults($limit);
 
-
+        dump($qb->getQuery()->getResult());
         return $qb->getQuery()->getResult();
-
-
-
-
-
-
         //getResult() // recupére une liste de résultat
         //getOneResult() // recuperer le premier resultat
         //return $qb->getQuery()->getResult();

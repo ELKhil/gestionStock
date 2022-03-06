@@ -8,7 +8,7 @@ export default class extends Controller{
     //possède une div qui possede l'attribut data-controller='toastr'
     connect() {
         //la div qui a été utilisée pour appelée le controller
-        this.element;
+
 
         //récupére l'attribut message de la div
         //let message = this.element.getAttribute('data-message');
