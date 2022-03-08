@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="mb-4">
+
+    <!--Section heading-->
+    <h2 class="h1-responsive font-weight-bold text-center my-4" style="font-style: italic">Enregistrez-vous</h2>
+
+
+    <div class="row" style="padding-left: 50px; padding-top: 25px ; font-weight: bold">
+
+        <!--Grid column-->
+        <div class="col-md-9 mb-md-0 mb-5">
+            {# est nécessaire à l'envoie de formulaire #}
+            <form id="contact-form" name="contact-form"  method="POST"  >
+
+                {# input caché qui contiendra un code généré par le srveur #}
+                {{form_widget(form._token)}}
+
+                {# {{ form_row(form.lastName) }} remplace form_label et form_widget et form_errors#}
+
+                <!--Grid row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            {{ form_row(form.nom) }}
+                        </div>
+                    </div>
+                </div>
+
+                <!--Grid row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            {{ form_row(form.description) }}
+                        </div>
+                    </div>
+                </div>
+
+                <!--Grid row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            {{ form_row(form.prix) }}
+                        </div>
+                    </div>
+                </div>
+
+                <!--Grid row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            {{ form_row(form.stock) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="form-group mt-4">
+                        <div class="md-form mb-0 text-end">
+                            <button class="btn btn-dark">
+                                <i></i>enregistrer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </form>
+
+
+        </div>
+        <!--Grid column-->
+        {% endblock %}
+
+        {% block title %}
+
+        {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ClientController!{% endblock %}
+{% block title %} Produit!{% endblock %}
 
 {# Déclaration des variabes #}
 {% set keyword = app.request.query.get('keyword') %}
@@ -11,7 +11,7 @@
 
 {% block body %}
 
-    <h2 style="display: flex; justify-content: center; padding-top: 20px; font-style: italic">Clients</h2>
+    <h2 style="display: flex; justify-content: center; padding-top: 20px; font-style: italic">Produits</h2>
 
 
 
@@ -29,31 +29,35 @@
         </div>
     </form>
 
-    <a href="{{ path('client_add') }}" class="btn btn-dark mb-2">Nouveau</a>
+    <a href="{{ path('produit_add') }}" class="btn btn-dark mb-2">Nouveau</a>
 
     <table class="table">
         <thead>
         <tr>
             <th scope="col">Reference</th>
             <th scope="col">Nom</th>
-            <th scope="col">Prenom</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Stock</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
-        {% for c in clients %}
+        {% for p in produits %}
             <tr>
-                <td>{{ c.reference }}</td>
-                <td>{{ c.nom }}</td>
-                <td>{{ c.prenom }}</td>
+                <td>{{ p.reference }}</td>
+                <td>{{ p.nom }}</td>
+                <td>{{ p.prix }}</td>
+                <td>{{ p.stock }}</td>
                 <td>
 
-                    <a class="btn btn-sm btn-danger" href="{{ path('client_delet',{id: c.id} ) }}"
+                    <a class="btn btn-sm btn-danger" href="{{ path('produit_delet',{id: p.id} ) }}"
                        data-bs-toggle="modal"
                        data-bs-target="#my-modal">
                         <i class="fa fa-trash"></i></a>
-                    <a class="btn btn-sm btn-success" href="{{ path('client_updat',{id: c.id}) }}">
-                        <i class="fa fa-edit"></i></a>
+
+                    <a class="btn btn-sm btn-success" href="{{ path('produit_updat',{id: p.id }) }}"
+                        ><i class="fa fa-edit"></i></a>
+
 
                 </td>
             </tr>
@@ -63,28 +67,25 @@
     </table>
 
 
-
-
-
     {% if total > limit %}
-    <nav aria-label="Page navigation example" style = "padding-top: 300px; display: flex; justify-content: center">
-    <ul class="pagination" >
-        <li class="page-item" ><a style="color: black" class="page-link" href="#" >Previous</a></li>
-    {% for i in range(1, (total/limit) | round(0,'ceil') ) %}
-        {% if offset != (i-1) * limit %}
-            <li class="page-item"><a style="color: black"class="page-link" href="{{ path('client_clients', {
-                    'offset': (i-1) * limit ,
-                    'keyword': keyword ,
-                    'limit': limit})
-                    }}">{{ i }}</a></li>
-        {% else  %}
-            <li class="page-item disabled" ><a style="color: black"class="page-link" href="#">{{ i }}</a></li>
-        {% endif %}
-    {% endfor %}
-        <li class="page-item"><a style="color: black" class="page-link" href="#">Next</a></li>
-    </ul>
+        <nav aria-label="Page navigation example" style = "padding-top: 300px; display: flex; justify-content: center">
+            <ul class="pagination" >
+                <li class="page-item" ><a style="color: black" class="page-link" href="#" >Previous</a></li>
+                {% for i in range(1, (total/limit) | round(0,'ceil') ) %}
+                    {% if offset != (i-1) * limit %}
+                        <li class="page-item"><a style="color: black"class="page-link" href="{{ path('produit', {
+                                'offset': (i-1) * limit ,
+                                'keyword': keyword ,
+                                'limit': limit})
+                            }}">{{ i }}</a></li>
+                    {% else  %}
+                        <li class="page-item disabled" ><a style="color: black"class="page-link" href="#">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item"><a style="color: black" class="page-link" href="#">Next</a></li>
+            </ul>
 
-    </nav>
+        </nav>
     {% endif %}
 
 
@@ -114,8 +115,3 @@
         </div>
     </div>
 {% endblock %}
-
-
-
-
-

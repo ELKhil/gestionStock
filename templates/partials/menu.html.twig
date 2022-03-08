@@ -1,12 +1,27 @@
 <nav id="main-nav">
     <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+
+        <li {% if ((app.request().pathInfo) == '/') %} class="nav-item active" {% else %} class="nav-item" {% endif %} >
             {# path foncyion symfony intégré a twig pour créer des liens #}
             {# {name: 'khun'} ajoutera ?name=khun dans la requet #}
             <a class="nav-link" href="{{ path('default_home',{name: 'Khun'}) }}"><i class="fa fa-home me-2"></i>Accueil</a>
         </li>
-        <li><a class="nav-link" href="{{ path('default_contact') }}"><i class="fa fa-phone me-2"></i>Contact</a></li>
-        <li><a class="nav-link" href="{{ path('default_contact_us') }}"><i class="fa fa-envelope me-2 "></i>Contactez-nous</a></li>
-        <li><a class="nav-link" href="{{ path('client_clients') }}"><i class="fa fa-user me-2" ></i>Clients</a></li>
+
+        <li {% if ((app.request.attributes.get('_route')) == 'default_contact') %} class="nav-item active" {% else %} class="nav-item" {% endif %} >
+            <a class="nav-link" href="{{ path('default_contact') }}"><i class="fa fa-phone me-2"></i>Contact</a>
+        </li>
+
+       <li {% if ((app.request().pathInfo) == '/contactez-nous') %} class="nav-item active" {% else %} class="nav-item" {% endif %} >
+            <a class="nav-link" href="{{ path('default_contact_us') }}"><i class="fa fa-envelope me-2 "></i>Contactez-nous</a>
+        </li>
+
+        <li {% if ((app.request().pathInfo) == '/client') %} class="nav-item active" {% else %} class="nav-item" {% endif %} >
+            <a class="nav-link" href="{{ path('client_clients') }}"><i class="fa fa-user me-2" ></i>Clients</a>
+        </li>
+
+        <li {% if ((app.request().pathInfo) == 'produit') %} class="nav-item active" {% else %} class="nav-item" {% endif %} >
+            <a class="nav-link" href="{{ path('produit') }}"><i class="fa fa-product-hunt me-2" ></i>Produits</a>
+        </li>
+
     </ul>
 </nav>

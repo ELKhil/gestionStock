@@ -48,16 +48,19 @@ class ClientRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function countBySearch($keyword){
+        $qb= $this->_getQbWithSearch($keyword);
+        $qb->select('count(c.id)');
+        // permet de récupérer une valeur unique et non un objet ou une collection
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
+
+
     public function findBySearch($offset,$limit,$keyword){
-        //créer le constructeur de requet:
-        $qb =  $this->createQueryBuilder('c');
-        $qb ->where('c.deleted=0');
-
-        if(!empty($keyword)){
-            $qb->andWhere('c.nom LIKE :p1 OR c.prenom LIKE :p1 OR c.reference LIKE :p1 ');
-            $qb->setParameter('p1', $keyword . '%');
-
-        }
+       $qb= $this->_getQbWithSearch($keyword);
         $qb->setFirstResult($offset);
         $qb->setMaxResults($limit);
 
@@ -67,4 +70,30 @@ class ClientRepository extends ServiceEntityRepository
         //getOneResult() // recuperer le premier resultat
         //return $qb->getQuery()->getResult();
     }
+
+
+    private function _getQbWithSearch($keyword){
+        //créer le constructeur de requet:
+        $qb =  $this->createQueryBuilder('c');
+        $qb ->where('c.deleted=0');
+
+        if(($keyword)){
+            $qb->andWhere('c.nom LIKE :p1 OR c.prenom LIKE :p1 OR c.reference LIKE :p1 ');
+            $qb->setParameter('p1', $keyword . '%');
+        }
+        return $qb;
+    }
+
+
+
+
+    public function countByRef($ref){
+        //créer le constructeur de requet:
+            $qb =  $this->createQueryBuilder('c');
+            $qb->where('c.reference LIKE :p1 ');
+            $qb->setParameter('p1', $ref . '%');
+            $qb->select('COUNT(c.id)');
+            return $qb->getQuery()->getSingleScalarResult();
+    }
+
 }

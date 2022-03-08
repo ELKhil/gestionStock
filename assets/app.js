@@ -8,18 +8,24 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
+import 'bootstrap/dist/js/bootstrap.min.js'
+
 // start the Stimulus application
 import './bootstrap';
 
 
 const mainNav = document.getElementById('main-nav');
 const menuBtn = document.querySelector(".left");
-
-
-
-
 const toggleNav = e => {
     mainNav.classList.toggle('open');
 }
 
 menuBtn.addEventListener('click', toggleNav);
+
+
+
+
+
+
+
+

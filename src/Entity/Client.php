@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
@@ -17,15 +18,23 @@ class Client
     private $reference;
 
     #[ORM\Column(type: 'string',length: 50 , nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50,min: 2)]
     private $nom;
 
     #[ORM\Column(type: 'string',length: 50, nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50,min: 2)]
     private $prenom;
 
     #[ORM\Column(type: 'string',length: 255, nullable: false, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    #[Assert\Length(max: 255)]
     private $email;
 
     #[ORM\Column(type: 'string',length: 20, nullable: true)]
+    #[Assert\Regex(pattern: '/^\+{0,1}\d+$/')]
     private $tel;
 
     #[ORM\Column(type: 'boolean',options: ["default" => 0])]
