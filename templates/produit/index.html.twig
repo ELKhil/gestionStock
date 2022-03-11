@@ -6,6 +6,7 @@
 {% set keyword = app.request.query.get('keyword') %}
 {% set offset = app.request.query.get('offset') %}
 {% set limit = app.request.query.get('limit') ?: 5%}
+{% set choice = app.request.query.get('choice') %}
 
 
 
@@ -15,19 +16,41 @@
 
 
 
-    <form method="GET">
-        <div class="input-group" style=" display: flex; justify-content: right">
-            <div class="form-check-inline">
-                <input  type="search" name="keyword" value="{{  app.request.query.get('keyword') }}" class="form-control" placeholder="Search"/>
-                <label  for="keyword"></label>
+    <div class="row">
+
+            <div class="col-md-10">
+                <form method="GET">
+                    <div class="input-group" style=" margin-top: 50px; display: flex; justify-content: right">
+                        <div class="form-check-inline">
+                            <input  type="search" name="keyword" value="{{  app.request.query.get('keyword') }}" class="form-control" placeholder="Search"/>
+                            <label  for="keyword"></label>
+
+                        </div>
+                        <div class="form-check-inline">
+                            <button class="btn btn-dark">Chercher</button>
+                        </div>
+
+                    </div>
+                </form>
 
             </div>
-            <div class="form-check-inline">
-                <button class="btn btn-dark">Chercher</button>
+
+
+            <div class="col-md-2" style=" margin-top: 50px">
+                <form method="GET">
+                    <select name = "choice" class="form-select " onChange="this.form.submit()">
+                        <option hidden>{% if(app.request.query.get('choice'))%}
+                                {{ app.request.query.get('choice') }} {% else %} Filtre {% endif %}</option>
+                        <option value="Stock" >Stock</option>
+                        <option value="Prix croissant" >Prix croissant</option>
+                        <option value="Prix décroissant">Prix décroissant</option>
+                    </select>
+
+                </form>
+
             </div>
 
-        </div>
-    </form>
+    </div>
 
     <a href="{{ path('produit_add') }}" class="btn btn-dark mb-2">Nouveau</a>
 
@@ -70,19 +93,19 @@
     {% if total > limit %}
         <nav aria-label="Page navigation example" style = "padding-top: 300px; display: flex; justify-content: center">
             <ul class="pagination" >
-                <li class="page-item" ><a style="color: black" class="page-link" href="#" >Previous</a></li>
+
                 {% for i in range(1, (total/limit) | round(0,'ceil') ) %}
                     {% if offset != (i-1) * limit %}
                         <li class="page-item"><a style="color: black"class="page-link" href="{{ path('produit', {
                                 'offset': (i-1) * limit ,
                                 'keyword': keyword ,
-                                'limit': limit})
+                                'limit': limit,
+                                'choice' : choice})
                             }}">{{ i }}</a></li>
                     {% else  %}
                         <li class="page-item disabled" ><a style="color: black"class="page-link" href="#">{{ i }}</a></li>
                     {% endif %}
                 {% endfor %}
-                <li class="page-item"><a style="color: black" class="page-link" href="#">Next</a></li>
             </ul>
 
         </nav>

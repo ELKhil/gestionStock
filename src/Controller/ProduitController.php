@@ -19,25 +19,39 @@ class ProduitController extends AbstractController
 {
 
     /*
-     * méthode affichage
+     * méthode affichage avec keyword
      */
     #[Route('/produit', name: 'produit')]
     public function produit(Request $request, ProduitRepository $repo): \Symfony\Component\HttpFoundation\Response
     {
+
+        $total =$repo->countBySearchProduct($request->query->get('keyword'));
+
+
+        if($request->query->get('choice')){
+            $produitsFlitrer = $repo->filter($request->query->get('choice'),
+                $request->query->get('offset'),
+                $request->query->get('limit') ?: 5);
+
+            return $this->render('produit/index.html.twig',[
+                'produits' => $produitsFlitrer,
+                'total' => $total
+            ]);
+
+        }
 
         $produits = $repo->findBySearchProduct(
             $request->query->get('offset'),
             $request->query->get('limit') ?: 5,
             $request->query->get('keyword'));
 
-        $total =$repo->countBySearchProduct($request->query->get('keyword'));
-
-
         return $this->render('produit/index.html.twig',[
             'produits' => $produits,
             'total' => $total
         ]);
     }
+
+
 
     #[Route('produit/add', name: 'produit_add')]
     public function add(Request $request,

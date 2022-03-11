@@ -50,7 +50,7 @@ class ProduitRepository extends ServiceEntityRepository
 
     public function countBySearchProduct($keyword){
         $qb= $this->_getQbWithSearch($keyword);
-        $qb->select('count(c.id)');
+        $qb->select('count(p.id)');
         // permet de récupérer une valeur unique et non un objet ou une collection
         return $qb->getQuery()->getSingleScalarResult();
 
@@ -70,21 +70,47 @@ class ProduitRepository extends ServiceEntityRepository
 
     private function _getQbWithSearch($keyword){
         //créer le constructeur de requet:
-        $qb =  $this->createQueryBuilder('c');
-        $qb ->where('c.deleted=0');
+        $qb =  $this->createQueryBuilder('p');
+        $qb ->where('p.deleted=0');
 
         if(($keyword)){
-            $qb->andWhere('c.nom LIKE :p1 OR c.reference LIKE :p1 ');
+            $qb->andWhere('p.nom LIKE :p1 OR p.reference LIKE :p1 ');
             $qb->setParameter('p1', $keyword . '%');
         }
         return $qb;
     }
+
+    private function _getFilter($choice){
+        //créer le constructeur de requet:
+        $qb =  $this->createQueryBuilder('p');
+        $qb ->where('p.deleted=0');
+        if($choice === "Prix croissant") {
+            $qb->orderBy("p.prix", 'asc');
+        }
+        if($choice === "Prix décroissant"){
+            $qb->orderBy("p.prix", 'desc');
+        }
+        if($choice === "Stock")
+            {
+                $qb->orderBy("p.stock", 'desc');
+            }
+        return $qb;
+
+    }
     public function countByRef($ref){
         //créer le constructeur de requet:
-        $qb =  $this->createQueryBuilder('c');
-        $qb->where('c.reference LIKE :p1 ');
+        $qb =  $this->createQueryBuilder('p');
+        $qb->where('p.reference LIKE :p1 ');
         $qb->setParameter('p1', $ref . '%');
-        $qb->select('COUNT(c.id)');
+        $qb->select('COUNT(p.id)');
         return $qb->getQuery()->getSingleScalarResult();
+    }
+    public function filter($choice,$offset,$limit){
+
+        $qb = $this->_getFilter($choice);
+        $qb->setFirstResult($offset);
+        $qb->setMaxResults($limit);
+        return $qb->getQuery()->getResult();
+
     }
 }

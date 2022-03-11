@@ -16,11 +16,11 @@
         </li>
 
         <li {% if ((app.request().pathInfo) == '/client') %} class="nav-item active" {% else %} class="nav-item" {% endif %} >
-            <a class="nav-link" href="{{ path('client_clients') }}"><i class="fa fa-user me-2" ></i>Clients</a>
+            <a class="nav-link" href="{{ path('client_clients') }}"><i class="fas fa-users me-2" ></i>Clients</a>
         </li>
 
         <li {% if ((app.request().pathInfo) == 'produit') %} class="nav-item active" {% else %} class="nav-item" {% endif %} >
-            <a class="nav-link" href="{{ path('produit') }}"><i class="fa fa-product-hunt me-2" ></i>Produits</a>
+            <a class="nav-link" href="{{ path('produit') }}"><i class="fa fa-shopping-bag me-2" ></i>Produits</a>
         </li>
 
     </ul>
