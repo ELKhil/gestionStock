@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h2 style="display: flex; justify-content: center; padding-top: 20px; font-style: italic">Commandes</h2>
+
+    <a href="{{ path('commande_add') }}" class="btn btn-dark mb-2">Nouveau</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Reference</th>
+            <th scope="col">Date de création</th>
+            <th scope="col">Date de modification</th>
+            <th scope="col">Client</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Total</th>
+            <th scope="col">Modifier</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for c in commandes %}
+            <tr>
+                <td>{{ c.reference }}</td>
+                <td>{{ c.creationDate | date('Y-m-d')}}</td>
+                <td>{{ c.updateDate | date('Y-m-d') }}</td>
+                <td>{{ c.client }}</td>
+                <td>{{ c.etat }}</td>
+                <td></td>
+
+                <td>
+                    <a class="btn btn-sm btn-success" href="">
+                        <i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+
+
+
+{% endblock %}
+
+{% block title %}
+    Commandes
+
+{% endblock %}

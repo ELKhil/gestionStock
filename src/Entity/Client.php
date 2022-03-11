@@ -141,4 +141,10 @@ class Client
     {
         return $this->id;
     }
+
+    public function __toString(): string
+    {
+        return $this->nom.$this->prenom."(".$this->reference.")";
+    }
+
 }

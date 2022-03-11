@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<section class="mb-4">
+
+                <!--Section heading-->
+                <h2 class="h1-responsive font-weight-bold my-4" style="font-style: italic">Ajouter une commande</h2>
+
+                {# input caché qui contiendra un code généré par le srveur #}
+                {{form_widget(form._token)}}
+    <div class="col-md-9 mb-md-0 mb-5">
+        {# est nécessaire à l'envoie de formulaire #}
+        <form id="contact-form" name="client_form"  method="POST"  >
+                <!--Grid row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            {{ form_row(form.client) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group mt-4">
+                        <div class="md-form mb-0 text-end">
+                            <button class="btn btn-dark">
+                                <i></i>enregistrer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </form>
+    </div>
+
+{% endblock %}
+
+{% block title %}
+    Add Commandes
+
+{% endblock %}

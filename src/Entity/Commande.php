@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Client;
 use App\Repository\CommandeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +22,7 @@ class Commande
     private $updateDate;
 
     #[ORM\Column(type: 'date',nullable: false)]
+
     private $creationDate;
 
     #[ORM\Column(type: 'smallint',nullable: false)]
@@ -28,8 +30,24 @@ class Commande
 
     //cascade: ['persist'] permet de sauvegarder une commande et un client en meme temps
     #[ORM\ManyToOne(targetEntity:'App\Entity\Client')]
-    #[ORM\JoinColumn(onDelete: 'NO ACTION',nullable: false )]
+    #[ORM\JoinColumn(onDelete: 'NO ACTION', nullable: false )]
     private $client;
+
+    /**
+     * @return mixed
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param mixed $client
+     */
+    public function setClient($client): void
+    {
+        $this->client = $client;
+    }
 
     /*
      * @var LigneCommande[]
@@ -64,7 +82,7 @@ class Commande
     }
 
     /**
-     * @return mixed
+     * @return
      */
     public function getUpdateDate()
     {
@@ -72,7 +90,7 @@ class Commande
     }
 
     /**
-     * @param mixed $updateDate
+     * @param
      */
     public function setUpdateDate($updateDate): void
     {
@@ -80,7 +98,7 @@ class Commande
     }
 
     /**
-     * @return mixed
+     * @return
      */
     public function getCreationDate()
     {
@@ -88,7 +106,7 @@ class Commande
     }
 
     /**
-     * @param mixed $creationDate
+     * @param
      */
     public function setCreationDate($creationDate): void
     {
@@ -157,5 +175,7 @@ class Commande
     public function removeLigne (LigneCommande $ligne){
         $this->lignes->remove($ligne);
     }
+
+
 
 }

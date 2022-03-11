@@ -116,7 +116,11 @@ class ClientController extends AbstractController
 
             //chercher l'objet client avec la méthode find
             $client = $repo->find($id);
-            dump($client);
+
+            //dans le cas ou $Clien et null ou Delted est true on lance une exception 404,
+            if($client == null || $client->getDeleted()){
+                throw new NotFoundHttpException();
+            }
             //fonction des controllers qui permet de créer un formulaire
             $form =  $this->createForm(UpdatClientType::class,$client);
 
