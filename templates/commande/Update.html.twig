@@ -4,7 +4,7 @@
 <section class="mb-4">
 
     <!--Section heading-->
-    <h2 class="h1-responsive font-weight-bold  my-4" style="font-style: italic">Modification Du client {{ client.reference }}</h2>
+    <h2 class="h1-responsive font-weight-bold  my-4" style="font-style: italic">Modification de la commande{{ commandes.reference }}</h2>
 
 
     <div class="row" style="padding-left: 50px; padding-top: 25px ; font-weight: bold">
@@ -22,54 +22,44 @@
 
                 <!--Grid row-->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="md-form mb-0">
                             {{ form_row(form.reference) }}
                         </div>
                     </div>
-                </div>
+
                 <!--Grid row-->
-                <div class="row">
-                    <div class="col-md-12">
+
+                    <div class="col-md-6">
                         <div class="md-form mb-0">
-                            {{ form_row(form.nom) }}
-                        </div>
-                    </div>
-                </div>
-                <!--Grid row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="md-form mb-0">
-                            {{ form_row(form.description) }}
+                            {{ form_row(form.creationDate) }}
                         </div>
                     </div>
                 </div>
 
                 <!--Grid row-->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="md-form mb-0">
-                            {{ form_row(form.prix) }}
+                            {{ form_row(form.client) }}
+                        </div>
+                    </div>
+
+                    <!--Grid row-->
+
+                    <div class="col-md-6">
+                        <div class="md-form mb-0">
+                            {{ form_row(form.etat) }}
                         </div>
                     </div>
                 </div>
-                <!--Grid row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="md-form mb-0">
-                            {{ form_row(form.stock) }}
-                        </div>
-                    </div>
-                </div>
-
-
 
 
                 <div class="row">
                     <div class="form-group mt-4">
                         <div class="md-form mb-0 text-end">
                             <button class="btn btn-dark">
-                                <i></i>Modifier
+                                <i></i>Ajouter/Modifier
                             </button>
                         </div>
                     </div>

@@ -2,6 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Etats;
+use App\Form\RechercheCommandeType;
+use App\Form\UpdateCommandeType;
+use App\Form\UpdatProduitType;
+use App\Model\Commande\SearchCommandForm;
+use App\Repository\EtatsRepository;
+use App\Repository\ProduitRepository;
 use Symfony\Component\Validator\Constraints\Date;
 use App\Form\AddCommandeType;
 use App\Entity\Commande;
@@ -17,15 +24,33 @@ class CommandeController extends AbstractController
     #[Route('/commande', name: 'commande')]
     public function commande(Request $request, CommandeRepository $repo): \Symfony\Component\HttpFoundation\Response
     {
-        $commandes = $repo->findAll();
+
+        //créer un objet SearchCommanForm
+        $search = new SearchCommandForm();
+
+
+        $form= $this->createForm(RechercheCommandeType::class, $search);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $commandes = $repo->search($search->reference, $search->client, $search->startAt, $search->endAt, $search->etats);
+
+        } else {
+            $commandes = $repo->findAll();
+        }
+
         return $this->render('commande/index.html.twig',[
-            'commandes' => $commandes
+            'commandes' => $commandes,
+            'form' => $form->createView()
         ]);
     }
+
+
     #[Route('commande/add', name: 'commande_add')]
     public function add(Request $request,
                         EntityManagerInterface $em,
-                        CommandeRepository $repo)
+                        CommandeRepository $repo,
+                        EtatsRepository $repoEtat)
     {
         $commande = new Commande();
         //fonction des controllers qui permet de créer un formulaire
@@ -39,10 +64,10 @@ class CommandeController extends AbstractController
         {
             $commande->setCreationDate( new \DateTime("now"));
             $commande->setUpdateDate(new \DateTime("now"));
-            $commande->setEtat(2);
-            $commande->setClient($request->query->get("add_commande[client]"));
             $commande->setClient($form->get("client")->getData());
 
+            $etat = $repoEtat->find(1);
+            $commande->setEtat($etat);
 
             $ref = date("ymd");
             $count = $repo->countByRef($ref) + 1;
@@ -62,6 +87,38 @@ class CommandeController extends AbstractController
 
         return $this->render('commande/add.html.twig',[
             'form'=>$form->createView()
+        ]);
+    }
+
+    #[Route('commande/updat{id}' , name: 'commande_updat')]
+    public function update(Request $request,CommandeRepository $repo, EntityManagerInterface $em, int $id){
+
+        //chercher l'objet client avec la méthode find
+        $commande = $repo->find($id);
+
+        //fonction des controllers qui permet de créer un formulaire
+        $form =  $this->createForm(UpdateCommandeType::class,$commande);
+
+        //remplir / hydratation le message
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $em->persist($commande);
+
+            $em->flush();
+
+            //Affichage de message de succes
+            $this->addFlash('success' , 'Modification OK');
+
+            //Basculer la vue
+            return $this->redirectToRoute('commande');
+        }
+
+        return $this->render('commande/update.html.twig',[
+            'form'=>$form->createView(),
+            'commandes' => $commande
         ]);
     }
 

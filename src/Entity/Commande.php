@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Client;
+
 use App\Repository\CommandeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,10 +22,10 @@ class Commande
     private $updateDate;
 
     #[ORM\Column(type: 'date',nullable: false)]
-
     private $creationDate;
 
-    #[ORM\Column(type: 'smallint',nullable: false)]
+    #[ORM\ManyToOne(targetEntity:'App\Entity\Etats')]
+    #[ORM\JoinColumn(onDelete: 'NO ACTION', nullable: false )]
     private $etat;
 
     //cascade: ['persist'] permet de sauvegarder une commande et un client en meme temps
@@ -128,6 +128,8 @@ class Commande
     {
         $this->etat = $etat;
     }
+
+
 
     /**
      * @return mixed

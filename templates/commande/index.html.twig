@@ -6,31 +6,74 @@
 
     <a href="{{ path('commande_add') }}" class="btn btn-dark mb-2">Nouveau</a>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Reference</th>
-            <th scope="col">Date de création</th>
-            <th scope="col">Date de modification</th>
-            <th scope="col">Client</th>
-            <th scope="col">Etat</th>
-            <th scope="col">Total</th>
-            <th scope="col">Modifier</th>
+    <form method="POST">
+        {{form_widget(form._token)}}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.reference) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.client) }}
+            </div>
+        </div>
 
-        </tr>
-        </thead>
-        <tbody>
+
+
+        <div class="row">
+            <div class="col-md-6">
+               {{ form_row(form.startAt) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.endAt) }}
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                {{ form_row(form.etats) }}
+            </div>
+
+        </div>
+
+            <div class="form-check mt-2 mb-5">
+                <a href="/commande" class="btn btn-close-default" type="reset">Reset
+                    <i class="fas fa-undo"></i></a>
+                <button class="btn btn-dark">Rechercher</button>
+            </div>
+
+
+
+
+    </form >
+
+
+    {% if commandes is not empty %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Reference</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Date de modification</th>
+                <th scope="col">Client</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Total</th>
+                <th scope="col">Modifier</th>
+
+            </tr>
+            </thead>
+            <tbody>
         {% for c in commandes %}
             <tr>
                 <td>{{ c.reference }}</td>
                 <td>{{ c.creationDate | date('Y-m-d')}}</td>
                 <td>{{ c.updateDate | date('Y-m-d') }}</td>
                 <td>{{ c.client }}</td>
-                <td>{{ c.etat }}</td>
+                <td>{{ c.etat.nom }}</td>
                 <td></td>
 
                 <td>
-                    <a class="btn btn-sm btn-success" href="">
+                    <a class="btn btn-sm btn-success" href="{{ path('commande_updat', {id: c.id}) }}">
                         <i class="fa fa-edit"></i></a>
                 </td>
             </tr>
@@ -39,7 +82,11 @@
         </tbody>
     </table>
 
+    {% else %}
 
+        <h3 style="display: flex; justify-content: center; color: #b32d2e">Aucun résultat trouvé ..............!!!!</h3>
+
+    {% endif %}
 
 
 
