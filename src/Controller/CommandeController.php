@@ -9,6 +9,7 @@ use App\Form\UpdatProduitType;
 use App\Model\Commande\SearchCommandForm;
 use App\Repository\EtatsRepository;
 use App\Repository\ProduitRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Validator\Constraints\Date;
 use App\Form\AddCommandeType;
 use App\Entity\Commande;
@@ -22,6 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommandeController extends AbstractController
 {
     #[Route('/commande', name: 'commande')]
+    #[IsGranted('administrateur')]
     public function commande(Request $request, CommandeRepository $repo): \Symfony\Component\HttpFoundation\Response
     {
 

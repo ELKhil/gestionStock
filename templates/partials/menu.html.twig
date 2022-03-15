@@ -25,6 +25,12 @@
         <li {% if ((app.request().pathInfo) == '/commande') %} class="nav-item active" {% else %} class="nav-item" {% endif %} >
             <a class="nav-link" href="{{ path('commande') }}"><i class="fa fa-shopping-cart me-2" ></i>Commandes</a>
         </li>
+        <li {% if ((app.request().pathInfo) == '/register') %} class="nav-item active" {% else %} class="nav-item" {% endif %} >
+            <a class="nav-link" href="{{ path('app_register') }}"><i class="fa fa-user-plus me-2" ></i>Register</a>
+        </li>
+        <li {% if ((app.request().pathInfo) == '/login') %} class="nav-item active" {% else %} class="nav-item" {% endif %} >
+            <a class="nav-link" href="{{ path('security_login') }}"><i class="fa fa-sign-in me-2" ></i>Login</a>
+        </li>
 
 
 

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+
+
+        <form id="contact-form" name="registration"  method="POST"  >
+            {{ form_start(registrationForm) }}
+            <!--Grid row-->
+            <div class="row">
+                <div class="col-md-4 mt-5">
+                    <div class="md-form mb-0">
+                        {{ form_row(registrationForm.email) }}
+                    </div>
+                </div>
+            </div>
+            <!--Grid row-->
+            <div class="row">
+                <div class="col-md-4 mt-3">
+                    <div class="md-form mb-0">
+                        {{ form_row(registrationForm.plainPassword, {
+                            label: 'Password'
+                        }) }}
+                    </div>
+                </div>
+            </div>
+            {{ form_row(registrationForm.agreeTerms) }}
+
+            <div class="row">
+                <div class="form-group mt-4">
+                    <div class="md-form mb-0 text-start">
+                        <button class="btn btn-dark">
+                            <i></i>Register
+                        </button>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+
+
+
+{% endblock %}

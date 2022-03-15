@@ -24,14 +24,16 @@ header {
         cursor: pointer;
     }
     .title {
-        font-size: 19px;
+        font-size: 25px;
+        font-style: italic;
+        font-weight: bolder;
     }
 }
 
 .flex-container {
     flex-grow: 1;
     display: flex;
-    background-color: #cccccc;
+   /* background-color: gray;*/
     //z-index: 0;
     #main-nav {
         width: 300px;
@@ -82,5 +84,5 @@ footer {
     height: 50px;
     box-shadow: -2px 0 10px 0 $border-color;
     //z-index: 1;
-    background: white;
+    background: $reed;
 }
