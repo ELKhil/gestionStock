@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommandeController extends AbstractController
 {
     #[Route('/commande', name: 'commande')]
-    #[IsGranted('administrateur')]
+    #[IsGranted('admin')]
     public function commande(Request $request, CommandeRepository $repo): \Symfony\Component\HttpFoundation\Response
     {
 
