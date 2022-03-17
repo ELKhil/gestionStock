@@ -11,6 +11,7 @@ use App\Repository\ClientRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -160,6 +161,19 @@ class ProduitController extends AbstractController
         ]);
     }
 
+    #[Route('produit/search' , name: 'produit_search')]
+    public function getByname(Request $request, ProduitRepository $repository){
+
+        $name = $request->query->get('name');
+        $products= $repository->findByname($name);
+
+        return new JsonResponse(
+            array_map(
+                function($item){ return $item->serialize(); },
+                $products
+            )
+        );
+    }
 
 
 

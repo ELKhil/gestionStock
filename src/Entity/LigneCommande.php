@@ -60,9 +60,6 @@ class LigneCommande
     }
 
 
-
-
-
     /**
      * @return mixed
      */
@@ -95,12 +92,19 @@ class LigneCommande
         $this->commande = $commande;
     }
 
-
-
-
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function serialize(){
+        $prix = $this->prix ?: $this->getProduitId()->getPrix();
+        return [
+            'id' => $this->id,
+            'quantite' => $this->quantite * 1,
+            'prix' => $prix * 1,
+            'prixTotal' => ($prix * $this->quantite),
+            'produitRef' => $this->getProduitId()->getReference()
+        ];
     }
 }

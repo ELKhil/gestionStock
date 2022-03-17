@@ -37,6 +37,7 @@ class UpdateCommandeType extends AbstractType
                 "class"=> Client::class,
                 //affichage du label
                 'label' =>'client', //affichage du label
+                'disabled'=> true,
                 'label_attr' => ['class' => 'forme-label'], //ajouter des attribut au label
                 'required' =>false,  //le  champs est requis
                 'attr' =>['class' => 'form-control','readonly' => true]
@@ -45,6 +46,7 @@ class UpdateCommandeType extends AbstractType
                 "class"=> Etats::class,
                 //affichage du label
                 'label' =>'Etats', //affichage du label
+                'disabled'=> true,
                 'label_attr' => ['class' => 'forme-label','readonly' => true ], //ajouter des attribut au label
                 'required' =>false,  //le  champs est requis
                 'attr' =>['class' => 'form-control',

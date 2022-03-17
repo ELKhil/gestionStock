@@ -1,5 +1,6 @@
 import { startStimulusApp } from '@symfony/stimulus-bridge';
 import Toastr_controller from "./controllers/toastr_controller";
+import ReactCommande_controller from "./controllers/react-commande_controller";
 
 // Registers Stimulus controllers from controllers.json and in the controllers/ directory
 export const app = startStimulusApp(require.context(
@@ -12,6 +13,7 @@ export const app = startStimulusApp(require.context(
 // app.register('some_controller_name', SomeImportedController);
 
 app.register('toastr',Toastr_controller);
+app.register('react-commande', ReactCommande_controller);
 
 
 

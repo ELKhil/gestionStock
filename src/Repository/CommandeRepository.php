@@ -86,6 +86,37 @@ class CommandeRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findWithClient(int $id)
+    {
+
+        //select c.* From commande as c
+        $qb = $this->createQueryBuilder('c');
+        //Where id =:p1
+        $qb->where('c.id = :p1');
+        $qb->setParameter('p1', $id);
+        //LeftJoin client as cl On cl.id = c.clientID
+        $qb->leftJoin('c.client','cl' );
+        $qb->addSelect('cl');
+
+        //si on sait qu'on va récupérer qu'une seule résultat
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function findWithLinesAndProducts($id)
+    {
+        $qb =$this->createQueryBuilder('c');
+        $qb->where("c.id = :p1");
+        $qb->setParameter('p1' , $id);
+
+        $qb->leftJoin('c.lignes' , 'l');
+        $qb->leftJoin('l.produit_id' , 'p');
+
+        $qb->addSelect('l');
+        $qb->addSelect('p');
+
+        return $qb->getQuery()->getOneOrNullResult();
+
+    }
 
 
 }

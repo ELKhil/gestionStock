@@ -131,4 +131,15 @@ class Produit
     {
         return $this->id;
     }
+
+    public function serialize()
+    {
+        return [
+          'id' => $this->id,
+          'nom' => $this->nom ,
+          'reference' => $this->reference,
+          'stock' => $this->stock,
+          'prix' => $this->prix
+        ];
+    }
 }

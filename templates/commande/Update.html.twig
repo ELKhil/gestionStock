@@ -4,7 +4,7 @@
 <section class="mb-4">
 
     <!--Section heading-->
-    <h2 class="h1-responsive font-weight-bold  my-4" style="font-style: italic">Modification de la commande{{ commandes.reference }}</h2>
+    <h2 class="h1-responsive font-weight-bold  my-4" style="font-style: italic">Modification de la commande {{ commandes.reference }}</h2>
 
 
     <div class="row" style="padding-left: 50px; padding-top: 25px ; font-weight: bold">
@@ -55,7 +55,7 @@
                 </div>
 
 
-                <div class="row">
+             {#   <div class="row">
                     <div class="form-group mt-4">
                         <div class="md-form mb-0 text-end">
                             <button class="btn btn-dark">
@@ -63,14 +63,19 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div>#}
 
 
 
             </form>
 
-
+            <div data-controller="react-commande"
+                 data-id ="{{ commandes.id }}" class="mt-5">
         </div>
+
+
+
+
         <!--Grid column-->
         {% endblock %}
 

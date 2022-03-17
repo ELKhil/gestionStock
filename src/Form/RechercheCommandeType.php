@@ -4,13 +4,11 @@ namespace App\Form;
 
 
 use App\Entity\Client;
-use App\Entity\Commande;
 use App\Entity\Etats;
 use App\Model\Commande\SearchCommandForm;
 use App\Repository\ClientRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -58,13 +56,11 @@ class RechercheCommandeType extends AbstractType
                 "class"=> Etats::class,
                 //affichage du label
                 'label' =>'Etats', //affichage du label
-                'label_attr' => ['class' => 'forme-label'], //ajouter des attribut au label
-                'required' =>false,  //le  champs est requis
-                'attr' =>['class' => 'form-control',
+                'label_attr' => ['class' => 'form-label'], //ajouter des attribut au label
+                'required' => false,  //le  champs est requis
+                'attr' =>['class' => 'form-control select2',
                 ]
-            ])
-
-        ;
+            ]);
 
 
     }

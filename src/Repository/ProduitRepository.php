@@ -113,4 +113,20 @@ class ProduitRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
 
     }
+
+    public function findByname($name)
+    {
+            $qb= $this->createQueryBuilder('p');
+            $qb->where('p.deleted = false' );
+            $qb->andWhere('p.nom Like :p1');
+            $qb->andWhere('p.stock > 0');
+            $qb->setParameter('p1', $name.'%');
+
+            $qb->orderBy('p.nom');
+
+            $qb->setMaxResults(20);
+
+            return $qb->getQuery()->getResult();
+
+    }
 }

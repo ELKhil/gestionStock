@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Produit;
@@ -32,7 +33,7 @@ class AddProduitType extends AbstractType
                 'attr' =>['class' => 'form-control']
 
             ])
-            ->add('prix', NumberType::class,[
+            ->add('prix', MoneyType::class,[
                 'required' =>true,
                 'attr' =>['class' => 'form-control']
             ])
